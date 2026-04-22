@@ -1,0 +1,49 @@
+
+import java.util.Scanner;
+import java.util.Arrays;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Предопределённый массив из задания
+        boolean[] defaultEntries = {
+            true, true, true, false, true, true, true, true, true, false,
+            true, false, true, false, false, true, true, true, true, true,
+            false, false, true, true
+        };
+
+        System.out.println("Посчитать сотрудников (true/1) и посетителей (false/0)");
+        System.out.println("Использовать массив из задания? (y/n)");
+        String useDefault = scanner.nextLine();
+
+        boolean[] entries;
+
+        if (useDefault.equalsIgnoreCase("y")) {
+            entries = defaultEntries;
+        } else {
+            System.out.println("Введите массив в формате [1, 0, 1, 1, 1]:");
+            String input = scanner.nextLine();
+            // Убираем квадратные скобки и пробелы
+            input = input.replace("[", "").replace("]", "").replace(" ", "");
+            String[] parts = input.split(",");
+            entries = new boolean[parts.length];
+            for (int i = 0; i < parts.length; i++) {
+                int val = Integer.parseInt(parts[i]);
+                entries[i] = (val == 1);
+            }
+        }
+
+        // Подсчёт сотрудников (true)
+        int employeeCount = 0;
+        for (boolean entry : entries) {
+            if (entry) {
+                employeeCount++;
+            }
+        }
+
+        System.out.println("Массив: " + Arrays.toString(entries));
+        System.out.println("Количество сотрудников: " + employeeCount);
+        scanner.close();
+    }
+}
